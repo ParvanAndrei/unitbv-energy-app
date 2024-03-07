@@ -1,4 +1,23 @@
+import Card, { CardProps } from "@/components/Card";
+import PageTitle from "@/components/PageTitle";
+import { DollarSign, Zap } from "lucide-react";
 import Image from "next/image";
+
+const cardData: CardProps[] = [
+  {
+    label: "Total Energy",
+    amount: "500 W",
+    description: "testam varule",
+    icon: DollarSign
+  },
+  {
+    label: "Average Energy",
+    amount: "250W",
+    description: "alt test unchiasule",
+    icon: Zap
+  }
+  // se adauga aici cate carduri vrei
+]
 
 export default function Home() {
   return (
@@ -109,7 +128,20 @@ export default function Home() {
     //     </a>
     //   </div>
     // </main>
-    <div>
+    <div className="flex flex-col gap-5 w-full">
+      <PageTitle title="Dashboard" />
+      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+        {cardData.map((d, i) =>
+          <Card key={i}
+            amount={d.amount}
+            description={d.description}
+            icon={d.icon}
+            label={d.label}
+
+          />
+        )}
+      </section>
+
       UNITBV APP
     </div>
   );
