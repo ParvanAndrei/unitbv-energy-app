@@ -1,6 +1,6 @@
 import Card, { CardProps } from "@/components/Card";
 import PageTitle from "@/components/PageTitle";
-import { DollarSign, Zap } from "lucide-react";
+import { Calculator, DollarSign, Zap } from "lucide-react";
 import Image from "next/image";
 
 const cardData: CardProps[] = [
@@ -8,13 +8,13 @@ const cardData: CardProps[] = [
     label: "Total Energy",
     amount: "500 W",
     description: "testam varule",
-    icon: DollarSign
+    icon: Zap
   },
   {
     label: "Average Energy",
     amount: "250W",
     description: "alt test unchiasule",
-    icon: Zap
+    icon: Calculator
   }
   // se adauga aici cate carduri vrei
 ]
