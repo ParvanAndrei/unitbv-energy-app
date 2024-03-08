@@ -1,7 +1,8 @@
-import Card, { CardProps } from "@/components/Card";
+import Card, { CardContent, CardProps } from "@/components/Card";
 import PageTitle from "@/components/PageTitle";
 import { Calculator, DollarSign, Zap } from "lucide-react";
 import Image from "next/image";
+import BarChar from "@/components/BarChar";
 
 const cardData: CardProps[] = [
   {
@@ -141,8 +142,18 @@ export default function Home() {
           />
         )}
       </section>
+      <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+          <CardContent>
+            <p className="p-4 font-semibold">Overview</p>
+            <BarChar/>
+          </CardContent>
+          <CardContent>
+            <p className="p-4 font-semibold">Month Overview</p>
+          </CardContent>
+        
 
-      UNITBV APP
+      </section>
+
     </div>
   );
 }

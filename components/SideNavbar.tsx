@@ -4,16 +4,8 @@
 import React, { useState } from 'react'
 import { Nav } from './ui/nav'
 import { Button } from "./ui/button"
-import {
-  ChevronRight,
-  LayoutDashboard,
-  Settings,
-  ShoppingCart,
-  UsersRound,
-} from "lucide-react"
-import {
-  useWindowWidth,
-} from '@react-hook/window-size'
+import { BellElectricIcon, ChevronRight, LayoutDashboard, LogOut, Settings, ShoppingCart, UserRound } from "lucide-react"
+import { useWindowWidth } from '@react-hook/window-size'
 
 type Props = {}
 
@@ -30,11 +22,11 @@ export default function SideNavbar({ }: Props) {
   return (
     <div className='relative min-w-[80px] border-r px-3 pb-10 pt-24'>
       {!mobileWidth && (
-      <div className='absolute right-[-20px] top-7'>
-        <Button onClick={toggleSidebar} variant="secondary" className='rounded-full p-2'>
-          <ChevronRight />
-        </Button>
-      </div>
+        <div className='absolute right-[-20px] top-7'>
+          <Button onClick={toggleSidebar} variant="secondary" className='rounded-full p-2'>
+            <ChevronRight />
+          </Button>
+        </div>
       )}
       <Nav
         isCollapsed={mobileWidth ? true : isCollapsed}
@@ -46,16 +38,16 @@ export default function SideNavbar({ }: Props) {
             variant: "default",
           },
           {
-            title: "Users",
-            href: "/users",
-            icon: UsersRound,
+            title: "Profile",
+            href: "/profile",
+            icon: UserRound,
             variant: "ghost",
           },
           {
-            title: "Orders",
-            href: "/orders",
+            title: "Notifications",
+            href: "/notify",
             label: "",
-            icon: ShoppingCart,
+            icon: BellElectricIcon,
             variant: "ghost",
           },
           {
@@ -64,6 +56,12 @@ export default function SideNavbar({ }: Props) {
             label: "",
             icon: Settings,
             variant: "ghost",
+          },
+          {
+            title: "Log Out",
+            href: "/logout",
+            icon: LogOut,
+            variant: "ghost"
           },
         ]}
       />

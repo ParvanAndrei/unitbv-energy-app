@@ -5,6 +5,6 @@ import React from "react";
 
 type Props ={};
 
-export default function OrdersPage({}: Props) {
-    return <div>OrdersPage</div>
+export default function LogOutPage({}: Props) {
+    return <div>LogOut Logic</div>
 }

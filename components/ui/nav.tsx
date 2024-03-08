@@ -5,11 +5,7 @@ import { LucideIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { TooltipProvider } from "@radix-ui/react-tooltip"
 import { usePathname } from "next/navigation"
 
@@ -17,7 +13,7 @@ import { usePathname } from "next/navigation"
 interface NavProps {
     isCollapsed: boolean
     links: {
-        href: string
+        href?: string
         title: string
         label?: string
         icon: LucideIcon
