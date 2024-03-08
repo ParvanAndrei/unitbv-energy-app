@@ -4,7 +4,7 @@
 import React, { useState } from 'react'
 import { Nav } from './ui/nav'
 import { Button } from "./ui/button"
-import { BellElectricIcon, ChevronRight, LayoutDashboard, LogOut, Settings, ShoppingCart, UserRound } from "lucide-react"
+import { BellElectricIcon, ChevronRight, LayoutDashboard, LogOut, Settings, UserRound } from "lucide-react"
 import { useWindowWidth } from '@react-hook/window-size'
 
 type Props = {}
