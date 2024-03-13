@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation"
 interface NavProps {
     isCollapsed: boolean
     links: {
-        href?: string
+        href: string
         title: string
         label?: string
         icon: LucideIcon

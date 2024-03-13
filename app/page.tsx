@@ -1,8 +1,9 @@
 import Card, { CardContent, CardProps } from "@/components/Card";
 import PageTitle from "@/components/PageTitle";
-import { Calculator, DollarSign, Zap } from "lucide-react";
+import { Calculator, DollarSign, Leaf, PlugZap, Zap } from "lucide-react";
 import Image from "next/image";
 import BarChar from "@/components/BarChar";
+import LineGraph from "@/components/LineGraph";
 
 const cardData: CardProps[] = [
   {
@@ -16,6 +17,18 @@ const cardData: CardProps[] = [
     amount: "250W",
     description: "alt test unchiasule",
     icon: Calculator
+  },
+  {
+    label: "Total Energy Last Month",
+    amount: "1240 W",
+    description: "Total energy consumed in the last month",
+    icon: Leaf
+  },
+  {
+    label: "Average Energy Last month",
+    amount: "507 W",
+    description: "Average energy consumption current month",
+    icon: PlugZap
   }
   // se adauga aici cate carduri vrei
 ]
@@ -143,17 +156,16 @@ export default function Home() {
         )}
       </section>
       <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
-          <CardContent>
-            <p className="p-4 font-semibold">Overview</p>
-            <BarChar/>
-          </CardContent>
-          <CardContent>
-            <p className="p-4 font-semibold">Month Overview</p>
-          </CardContent>
-        
-
+        <CardContent>
+          <p className="p-4 font-semibold">Overview</p>
+          <BarChar />
+        </CardContent>
+        <CardContent>
+          <p className="font-semibold"> Last Month Overview</p>
+          <p className="text-sm text-gray-400"> This Graph reprents the consumption on an entire month</p>
+          <LineGraph />
+        </CardContent>
       </section>
-
     </div>
   );
 }
