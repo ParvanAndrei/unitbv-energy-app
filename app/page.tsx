@@ -5,6 +5,11 @@ import Image from "next/image";
 import BarChar from "@/components/BarChar";
 import LineGraph from "@/components/LineGraph";
 
+const today = new Date()
+const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+const formattedToday = today.toISOString().split('T')[0];
+const formattedFirstDayOfMonth = firstDayOfMonth.toISOString().split('T')[0];
+
 const cardData: CardProps[] = [
   {
     label: "Total Energy",
@@ -163,7 +168,7 @@ export default function Home() {
         <CardContent>
           <p className="font-semibold"> Last Month Overview</p>
           <p className="text-sm text-gray-400"> This Graph reprents the consumption on an entire month</p>
-          <LineGraph />
+          <LineGraph startDate={formattedFirstDayOfMonth} endDate={formattedToday} />
         </CardContent>
       </section>
     </div>
