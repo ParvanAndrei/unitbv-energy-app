@@ -4,23 +4,68 @@ import { Calculator, DollarSign, Leaf, PlugZap, Zap } from "lucide-react";
 import Image from "next/image";
 import BarChar from "@/components/BarChar";
 import LineGraph from "@/components/LineGraph";
+import axios from "axios";
 
 const today = new Date()
 const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 const formattedToday = today.toISOString().split('T')[0];
 const formattedFirstDayOfMonth = firstDayOfMonth.toISOString().split('T')[0];
 
+const fetchDataTotalEnergy = async () => {
+  try {
+    const response = await axios.get('');
+    return response.data()
+  }
+  catch (error){
+    console.error('Error fetching data: ', error);
+    throw error;
+  }
+};
+
+const fetchDataAverageEnergy = async () => {
+  try {
+    const response = await axios.get('');
+    return response.data()
+  }
+  catch (error){
+    console.error('Error fetching data: ', error);
+    throw error;
+  }
+};
+
+const fetchDataTotalEnergyLastMonth = async () => {
+  try {
+    const response = await axios.get('');
+    return response.data()
+  }
+  catch (error){
+    console.error('Error fetching data: ', error);
+    throw error;
+  }
+};
+
+const fetchDataAverageEnergyLastMonth = async () => {
+  try {
+    const response = await axios.get('');
+    return response.data()
+  }
+  catch (error){
+    console.error('Error fetching data: ', error);
+    throw error;
+  }
+};
+
 const cardData: CardProps[] = [
   {
     label: "Total Energy",
     amount: "500 W",
-    description: "testam varule",
+    description: "Total energy consumed from the 1st day of the month until current day",
     icon: Zap
   },
   {
     label: "Average Energy",
     amount: "250W",
-    description: "alt test unchiasule",
+    description: "Average energy consumed from the 1st day of the month until current day",
     icon: Calculator
   },
   {
@@ -32,7 +77,7 @@ const cardData: CardProps[] = [
   {
     label: "Average Energy Last month",
     amount: "507 W",
-    description: "Average energy consumption current month",
+    description: "Average energy consumed in the last month",
     icon: PlugZap
   }
   // se adauga aici cate carduri vrei
@@ -150,12 +195,12 @@ export default function Home() {
     <div className="flex flex-col gap-5 w-full">
       <PageTitle title="Dashboard" />
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
-        {cardData.map((d, i) =>
-          <Card key={i}
-            amount={d.amount}
-            description={d.description}
-            icon={d.icon}
-            label={d.label}
+        {cardData.map((field, index) =>
+          <Card key={index}
+            amount={field.amount}
+            description={field.description}
+            icon={field.icon}
+            label={field.label}
 
           />
         )}

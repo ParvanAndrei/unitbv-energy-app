@@ -12,10 +12,6 @@ interface DataPoint {
     value: number;
 }
 
-// debugging
-// const startDate = '2024-04-01';
-// const endDate = '2024-04-04';
-
 const fetchLineGraphData = async (startDate: string, endDate: string) => {
     try {
         const response = await axios.get('http://localhost:8000/energy-consumption-per-day', {
@@ -34,13 +30,6 @@ const fetchLineGraphData = async (startDate: string, endDate: string) => {
     }
 };
 
-// debugging
-// fetchLineGraphData(startDate, endDate).then(data => {
-//     console.log('Fetched data: ', data);
-// })
-//     .catch(error => {
-//         console.log("error: ", error);
-//     });
 
 export default function LineGraph({ startDate, endDate }: { startDate: string; endDate: string; }) {
     const [receivedData, setReceivedData] = useState<DataPoint[]>([]);
