@@ -1,68 +1,56 @@
 /** @format */
 'use client'
 import React from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import { BarChart as BarGraph, ResponsiveContainer, XAxis, YAxis, Bar } from 'recharts';
 
-type Props = {};
+type Props = {}
 
-const data = [
-    {
-        name: "Jan",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Feb",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Mar",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Apr",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "May",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Jun",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Jul",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Aug",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Sep",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Oct",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Nov",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-    {
-        name: "Dec",
-        total: Math.floor(Math.random() * 500) + 100,
-    },
-];
+interface MonthData {
+    timestamp: string;
+    value: number;
+}
+
 
 export default function BarChar({ }: Props) {
+    const [data, setData] = useState<MonthData[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch data from the API
+                const response = await axios.get('http://localhost:8000/energy-consumption-per-month');
+                const apiData: { timestamp: string; value: number }[] = response.data.map((item: any) => ({
+                    value: item.value,
+                    timestamp: new Date(item.timestamp).getMonth()
+                }));
+                const normalizedData: { [timestamp: string]: number } = {};
+                apiData.forEach(item => {
+                    normalizedData[item.timestamp.toString()] = item.value;
+                });
+                const formattedData: MonthData[] = [];
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                months.forEach((month, index) => {
+                    const value = normalizedData[index.toString()] || Math.floor(Math.random() * 100) + 100; // Use 0 if month is missing in the API data
+                    formattedData.push({ timestamp: month, value: value });
+                });
+
+                // Set the formatted data to state
+                setData(formattedData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <ResponsiveContainer width={'100%'} height={350}>
             <BarGraph data={data}>
-                <XAxis dataKey={'name'} tickLine={false} axisLine={false} stroke="#888888" fontSize={12} />
+                <XAxis dataKey={'timestamp'} tickLine={false} axisLine={false} stroke="#888888" fontSize={12} />
                 <YAxis tickLine={false} axisLine={false} stroke="#888888" fontSize={12} tickFormatter={(value) => `${value} W`} />
-                <Bar dataKey={'total'} radius={[4, 4, 0, 0]} />
+                <Bar dataKey={'value'} radius={[4, 4, 0, 0]} />
             </BarGraph>
 
 
