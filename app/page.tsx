@@ -1,3 +1,4 @@
+'use client'
 import Card, { CardContent, CardProps } from "@/components/Card";
 import PageTitle from "@/components/PageTitle";
 import { Calculator, DollarSign, Leaf, PlugZap, Zap } from "lucide-react";
@@ -5,29 +6,34 @@ import Image from "next/image";
 import BarChar from "@/components/BarChar";
 import LineGraph from "@/components/LineGraph";
 import axios from "axios";
+import { useEffect, useState } from "react";
+
 
 const today = new Date()
 const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 const formattedToday = today.toISOString().split('T')[0];
 const formattedFirstDayOfMonth = firstDayOfMonth.toISOString().split('T')[0];
 
-const fetchDataTotalEnergy = async () => {
+const fetchDataTotalEnergy = async (startDate: string, endDate: string) => {
   try {
-    const response = await axios.get('');
-    return response.data()
-  }
-  catch (error){
-    console.error('Error fetching data: ', error);
-    throw error;
-  }
-};
-
-const fetchDataAverageEnergy = async () => {
-  try {
-    const response = await axios.get('');
-    return response.data()
-  }
-  catch (error){
+    const response = await axios.get('http://localhost:8000/energy-consumption-per-day', {
+      params: {
+        start_date: startDate,
+        end_date: endDate
+      }
+    });
+    const sum = response.data.reduce((acc: number, item: any) => acc + item.value, 0);
+    const numberOfDataPoints = response.data.length;
+    const average = sum / numberOfDataPoints;
+    return {
+      data: response.data.map((item: any) => ({
+        value: item.value,
+        day: new Date(item.timestamp).getDate().toString()
+      })),
+      sum: sum,
+      average: average
+    }
+  } catch (error) {
     console.error('Error fetching data: ', error);
     throw error;
   }
@@ -38,7 +44,7 @@ const fetchDataTotalEnergyLastMonth = async () => {
     const response = await axios.get('');
     return response.data()
   }
-  catch (error){
+  catch (error) {
     console.error('Error fetching data: ', error);
     throw error;
   }
@@ -49,41 +55,70 @@ const fetchDataAverageEnergyLastMonth = async () => {
     const response = await axios.get('');
     return response.data()
   }
-  catch (error){
+  catch (error) {
     console.error('Error fetching data: ', error);
     throw error;
   }
 };
 
-const cardData: CardProps[] = [
-  {
-    label: "Total Energy",
-    amount: "500 W",
-    description: "Total energy consumed from the 1st day of the month until current day",
-    icon: Zap
-  },
-  {
-    label: "Average Energy",
-    amount: "250W",
-    description: "Average energy consumed from the 1st day of the month until current day",
-    icon: Calculator
-  },
-  {
-    label: "Total Energy Last Month",
-    amount: "1240 W",
-    description: "Total energy consumed in the last month",
-    icon: Leaf
-  },
-  {
-    label: "Average Energy Last month",
-    amount: "507 W",
-    description: "Average energy consumed in the last month",
-    icon: PlugZap
-  }
-  // se adauga aici cate carduri vrei
-]
-
 export default function Home() {
+   const [cardData, setCardData] = useState([
+    {
+      label: "Total Energy",
+      amount: "500 W",
+      description: "Total energy consumed from the 1st day of the month until current day",
+      icon: Zap
+    },
+    {
+      label: "Average Energy",
+      amount: "250W",
+      description: "Average energy consumed from the 1st day of the month until current day",
+      icon: Calculator
+    },
+    {
+      label: "Total Energy Last Month",
+      amount: "1240 W",
+      description: "Total energy consumed in the last month",
+      icon: Leaf
+    },
+    {
+      label: "Average Energy Last month",
+      amount: "507 W",
+      description: "Average energy consumed in the last month",
+      icon: PlugZap
+    }
+  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetchDataTotalEnergy(formattedFirstDayOfMonth, formattedToday);
+        const totalEnergy = result.sum;
+        const averageEnergy = result.average;
+        setCardData(prevCardData => prevCardData.map(card => {
+          switch(card.label) {
+            case "Total Energy":
+              return {
+                ...card,
+                amount: `${totalEnergy} W`
+              };
+            case "Average Energy":
+              const formattedAverage = averageEnergy.toFixed(2);
+              return {
+                ...card,
+                amount: `${formattedAverage} W`
+              };
+            default:
+              return card;
+          }
+        }));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     // <main className="flex min-h-screen flex-col items-center justify-between p-24">
     //   <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
