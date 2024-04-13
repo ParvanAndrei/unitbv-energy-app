@@ -142,11 +142,12 @@ export default function Home() {
       </section>
       <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
         <CardContent>
-          <p className="p-4 font-semibold">Overview</p>
+          <p className="font-semibold">Year Overview</p>
+          <p className="text-sm text-gray-400">The evolution of the energy consummption during the last year.</p>
           <BarChar />
         </CardContent>
         <CardContent>
-          <p className="font-semibold"> Last Month Overview</p>
+          <p className="font-semibold"> Current Month Overview</p>
           <p className="text-sm text-gray-400"> This Graph reprents the consumption on an entire month</p>
           <LineGraph startDate={formattedFirstDayOfMonth} endDate={formattedToday} />
         </CardContent>
