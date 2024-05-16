@@ -14,13 +14,15 @@ export default function Card(props: CardProps) {
         <CardContent>
             <section className="flex justify-between gap-2">
                 {/* label */}
-                <p className="text-sm">{props.label}</p>
+                <p className="text-sm">{props.label}</p> 
+                {/* <div className="text-sm">{props.label}</div>  */}
                 {/* icon */}
                 <props.icon className="h-4 w-4 text-gray-400" />
             </section>
             <section className="flex flex-col gap-1">
                 <h2 className="text2xl font-semibold">{props.amount}</h2>
                 <p className="text-xs text-gray-500">{props.description}</p>
+                {/* <div className="text-xs text-gray-500">{props.description}</div> */}
             </section>
         </CardContent>
     )

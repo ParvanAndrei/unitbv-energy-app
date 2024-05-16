@@ -1,27 +1,32 @@
-
 'use client';
 
-import React, { useState } from 'react'
-import { Nav } from './ui/nav'
-import { Button } from "./ui/button"
-import { BellElectricIcon, ChevronRight, LayoutDashboard, LogOut, Settings, UserRound } from "lucide-react"
-import { useWindowWidth } from '@react-hook/window-size'
+import React, { useState, useEffect } from 'react';
+import { Nav } from './ui/nav';
+import { Button } from "./ui/button";
+import { BellElectricIcon, ChevronRight, LayoutDashboard, LogOut, Settings, UserRound } from "lucide-react";
+import { useWindowWidth } from '@react-hook/window-size';
 
-type Props = {}
+type Props = {};
 
 export default function SideNavbar({ }: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [mobileWidth, setMobileWidth] = useState(false);
 
   const onlyWidth = useWindowWidth();
-  const mobileWidth = onlyWidth < 768;
+
+  useEffect(() => {
+    setIsClient(true);
+    setMobileWidth(onlyWidth < 768);
+  }, [onlyWidth]);
 
   function toggleSidebar() {
-    setIsCollapsed(!isCollapsed)
+    setIsCollapsed(!isCollapsed);
   }
 
   return (
     <div className='relative min-w-[80px] border-r px-3 pb-10 pt-24'>
-      {!mobileWidth && (
+      {isClient && !mobileWidth && (
         <div className='absolute right-[-20px] top-7'>
           <Button onClick={toggleSidebar} variant="secondary" className='rounded-full p-2'>
             <ChevronRight />
@@ -61,10 +66,10 @@ export default function SideNavbar({ }: Props) {
             title: "Log Out",
             href: "/logout",
             icon: LogOut,
-            variant: "ghost"
+            variant: "ghost",
           },
         ]}
       />
     </div>
-  )
+  );
 }

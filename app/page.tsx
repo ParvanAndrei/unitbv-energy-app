@@ -143,12 +143,16 @@ export default function Home() {
       <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
         <CardContent>
           <p className="font-semibold">Year Overview</p>
+          {/* <div className="font-semibold">Year Overview</div> */}
           <p className="text-sm text-gray-400">The evolution of the energy consummption during the last year.</p>
+          {/* <div className="text-sm text-gray-400">The evolution of the energy consummption during the last year.</div> */}
           <BarChar />
         </CardContent>
         <CardContent>
           <p className="font-semibold"> Current Month Overview</p>
+          {/* <div className="font-semibold"> Current Month Overview</div> */}
           <p className="text-sm text-gray-400"> This Graph reprents the consumption on an entire month</p>
+          {/* <div className="text-sm text-gray-400"> This Graph reprents the consumption on an entire month</div> */}
           <LineGraph startDate={formattedFirstDayOfMonth} endDate={formattedToday} />
         </CardContent>
       </section>
