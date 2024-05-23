@@ -5,6 +5,7 @@ import { Nav } from './ui/nav';
 import { Button } from "./ui/button";
 import { BellElectricIcon, ChevronRight, LayoutDashboard, LogOut, Settings, UserRound } from "lucide-react";
 import { useWindowWidth } from '@react-hook/window-size';
+import { handleLogout } from '@/app/logout/logout';
 
 type Props = {};
 
@@ -62,14 +63,11 @@ export default function SideNavbar({ }: Props) {
             icon: Settings,
             variant: "ghost",
           },
-          {
-            title: "Log Out",
-            href: "/logout",
-            icon: LogOut,
-            variant: "ghost",
-          },
         ]}
       />
+      <Button onClick={handleLogout} variant="ghost" className='logout-button'>
+        <LogOut /> Log Out
+      </Button>
     </div>
   );
 }
