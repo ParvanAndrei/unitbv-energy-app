@@ -15,7 +15,6 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     const fetchUserInfo = async () => {
       try {
         const res = await axios.get('http://localhost:90/accestoken');
-        console.log(res)
         setUserInfo(res.data);
       } catch (error) {
         console.error('Failed to fetch user info:', error);
