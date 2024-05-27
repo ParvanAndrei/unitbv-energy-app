@@ -19,6 +19,7 @@ const fetchLineGraphData = async (startDate: string, endDate: string) => {
         end_date: endDate,
       },
     });
+    console.log('Raw data from backend:', response.data);
     return response.data.map((item: any) => ({
       value: item.value,
       day: new Date(item.timestamp).getDate().toString(),
